@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Domains\Dealership\Models;
 
 use App\Enums\DevStatus;
 use App\Enums\Rating;
