@@ -10,6 +10,8 @@ use App\Domains\Dealership\Services\DealershipService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DealershipController extends Controller
 {
@@ -17,14 +19,12 @@ class DealershipController extends Controller
         private readonly DealershipService $dealershipService
     ) {}
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): Response
     {
-        $perPage = $request->get('per_page', 15);
-        $dealerships = $this->dealershipService->getPaginatedDealerships($perPage);
+        $dealerships = $this->dealershipService->getAllDealerships();
 
-        return response()->json([
-            'data' => $dealerships,
-            'message' => 'Dealerships retrieved successfully',
+        return Inertia::render('dealerships/Dashboard', [
+            'dealerships' => $dealerships,
         ]);
     }
 
